@@ -1,0 +1,481 @@
+:root {
+    --primary: #d4b192;
+    --secondary: #2c3e50;
+    --glow-color: #7a6048;
+    --border-radius: 8px;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Times New Roman', serif;
+    padding: 20px;
+    margin-top: 60px; /* Espaço para o header fixo */
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1.4rem;
+    color: #2c3e50;
+  }
+  h2 {
+    text-align: center;
+    margin: 15px 0;
+    font-size: 1.2rem;
+    color: #2c3e50;
+  }
+  h3 {
+    text-align: center;
+    margin: 35px 0;
+    font-size: 1.0rem;
+    color: #d4b192;
+  }
+  
+  /* ========== NOVO HEADER ========== */
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+    border-bottom: 1px solid var(--primary);
+  }
+  
+  .menu-icon {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 22px;
+    transition: transform 0.3s;
+  }
+  
+  .menu-icon:hover {
+    transform: scale(1.1);
+  }
+  
+  .menu-icon span {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--primary);
+    border-radius: 3px;
+    transition: 0.3s;
+  }
+  
+  .menu-icon.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+  
+  .menu-icon.active span:nth-child(2) {
+    opacity: 0;
+  }
+  
+  .menu-icon.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  
+  .menu {
+    position: absolute;
+    top: -1500px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 350px;
+    background: rgba(44, 62, 80, 0.98);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 12px #d4b192;
+    padding: 15px 0;
+    opacity: 0;
+  }
+  
+  .menu.active {
+    top: 65px;
+    opacity: 1;
+  }
+  
+  .menu ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 0 15px;
+    list-style: none;
+    max-height: 600px; /* Altura máxima */
+    overflow-y: auto; /* Scroll apenas quando necessário */
+    padding-right: 10px; /* Espaço para a barra de rolagem */
+  }
+  
+  .menu-item {
+    background: var(--secondary);
+    border-radius: var(--border-radius);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.95em;
+    padding: 0 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+  
+  .menu-item:hover {
+    background: var(--primary);
+    color: var(--secondary);
+    transform: translateY(-2px);
+    border-color: var(--secondary);
+    box-shadow: 0 3px 8px rgba(122, 96, 72, 0.4);
+  }
+  
+  .menu-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius);
+    background: radial-gradient(circle at center, 
+               rgba(212, 177, 146, 0.2) 0%, 
+               transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .menu-item:hover::before {
+    opacity: 1;
+  }
+  
+  /* Ajustes responsivos */
+  @media (max-width: 768px) {
+  .menu-item {
+      height: 25px; /* Reduz altura */
+      font-size: 0.8em; /* Fonte menor */
+      padding: 0 6px; /* Padding reduzido */
+  }
+  }
+  
+  @media (max-width: 480px) {
+  .menu-list {
+      flex-direction: row; /* Empilha os itens */
+      gap: 2px; /* Espaçamento menor */
+  }
+  
+  .menu-item {
+      height: 20px; /* Altura mais compacta */
+      font-size: 0.55em; /* Fonte menor */
+      padding: 0 3px; /* Padding ainda menor */
+  }
+  }
+/* ========== MENU DO JOGO (GAME NAVIGATION) ========== */
+.game-navigation {
+    position: absolute;
+    top: -1500px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 350px;
+    background: var(--secondary);;
+    border-radius: var(--border-radius);
+    padding: 15px 0;
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+}
+
+.game-navigation.active {
+    top: 65px;
+    opacity: 1;
+}
+
+.game-nav-item {
+    background: var(--secondary);
+    border-radius: var(--border-radius);
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 0.95em;
+    padding: 0 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.game-nav-item:hover {
+    background: var(--primary);
+    color: var(--secondary);
+    transform: translateY(-2px);
+    border-color: var(--secondary);
+    box-shadow: 0 3px 8px rgba(122, 96, 72, 0.4);
+}
+
+/* ========== ÁREA DO JOGO ========== */
+#game-container {
+    z-index: 999;
+    width: 80%;
+    max-width: 800px;
+    background: var(--secondary);
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0px 0px 20px var(--primary);
+}
+
+#scene {
+    position: relative; /* Permite pseudo-elementos */
+    width: 100%;
+    height: 300px;
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius);
+    transition: filter 0.5s ease-in-out;
+}
+.scene-transition {
+    animation: fadeInOut 1.5s ease-in-out;
+}
+
+#game-text {
+    color: var(--primary);
+    font-size: 1.4rem;
+    font-family: 'Cinzel', serif;
+    margin: 20px 0;
+    min-height: 100px;
+}
+
+#choices-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap; /* Adicione para responsividade */
+}
+
+button {
+    background: var(--primary);
+    color: var(--secondary);
+    border: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background: var(--glow-color);
+    color: var(--text-light);
+}
+.button-style {
+    background: var(--primary);
+    color: var(--text-light);
+    padding: 12px 24px;
+    border: 1px solid var(--secondary);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button-style:hover {
+    background: var(--glow-color);
+    transform: scale(1.05);
+}
+
+/* Efeito de Sanidade */
+/* Correção do Medidor de Sanidade */
+.sanity-meter {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 120px;
+    height: 30px;
+    border: 2px solid var(--primary);
+    border-radius: 15px;
+    overflow: hidden;
+    background: var(--secondary);
+}
+.sanity-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+    transition: width 0.5s ease;
+}
+.low-sanity {
+    animation: sanity-distortion 1.5s infinite;
+}
+
+@keyframes sanity-distortion {
+    0% { filter: blur(1px) hue-rotate(0deg); }
+    50% { filter: blur(3px) hue-rotate(180deg); }
+    100% { filter: blur(1px) hue-rotate(360deg); }
+}
+
+/* Grade de Escolhas Responsiva */
+.choices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    padding: 20px 0;
+}
+
+/* Interface de Inventário */
+.inventory-grid {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 50px);
+    gap: 10px;
+    padding: 15px;
+    background: var(--secondary);
+    border-radius: var(--border-radius);
+}
+
+.inventory-item {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--secondary);
+    border-radius: 5px;
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+.inventory-item:hover {
+    transform: scale(1.1);
+    border: 2px solid var(--primary);
+}
+
+.item-uses {
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    font-size: 0.8em;
+    color: var(--glow-color);
+}
+
+/* Efeitos Especiais */
+.reality-distortion {
+    animation: realityShift 5s infinite alternate;
+}
+
+@keyframes realityShift {
+    0% { filter: hue-rotate(0deg) blur(0); }
+    100% { filter: hue-rotate(360deg) blur(3px); }
+}
+
+.blood-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: radial-gradient(circle, transparent 60%, rgba(150, 30, 30, 0.3) 100%);
+    animation: bloodPulse 2s infinite;
+}
+
+/* Puzzles */
+#puzzle-container {
+    margin-top: 20px;
+    padding: 15px;
+    background: var(--secondary);
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.1);
+}
+
+#puzzle-answer {
+    padding: 10px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--primary);
+    background: var(--secondary);
+    color: var(--light-text);
+}
+
+#submit-answer {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border-radius: var(--border-radius);
+    background: var(--primary);
+    color: var(--secondary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#submit-answer:hover {
+    background: var(--glow-color);
+    color: var(--light-text);
+}
+/* Adicionar novos efeitos */
+.brush-stroke {
+    width: 200px;
+    height: 50px;
+    background: linear-gradient(45deg, 
+        rgba(244, 208, 63, 0.4) 20%, 
+        rgba(231, 76, 60, 0.4) 80%
+    );
+    animation: brush-animation 20s infinite linear;
+    opacity: 0.4;
+}
+
+@keyframes brush-animation {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(120vw) rotate(45deg); }
+}
+
+.low-sanity {
+    animation: sanity-distortion 1s infinite;
+}
+
+@keyframes sanity-distortion {
+    0% { filter: blur(1px) hue-rotate(0deg); }
+    50% { filter: blur(3px) hue-rotate(180deg); }
+    100% { filter: blur(1px) hue-rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+    #game-container {
+        width: 100%;
+    }
+    #scene {
+        height: 200px;
+    }
+}
+/* Correções para Mobile */
+@media (max-width: 768px) {
+    .sanity-meter {
+        bottom: 70px;
+        right: 10px;
+        width: 100px;
+    }
+
+    .inventory-grid {
+        bottom: 70px;
+        left: 10px;
+        grid-template-columns: repeat(3, 40px);
+    }
+
+    #game-text {
+        font-size: 1.1rem;
+        min-height: 150px;
+    }
+}
